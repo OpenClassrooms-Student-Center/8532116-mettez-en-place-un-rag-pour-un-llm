@@ -29,12 +29,6 @@ wheels/
 .installed.cfg
 *.egg
 
-# Fichiers de base de données
-vector_db/
-*.db
-*.sqlite
-*.sqlite3
-
 # Fichiers de logs
 *.log
 logs/
