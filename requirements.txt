@@ -1,0 +1,13 @@
+streamlit
+mistralai
+langchain
+faiss     
+pypdf2      
+python-docx    
+pandas        
+openpyxl         
+python-dotenv
+requests      
+streamlit-feedback
+sqlalchemy
+plotly
