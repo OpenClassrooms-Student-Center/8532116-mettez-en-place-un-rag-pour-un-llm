@@ -55,7 +55,7 @@ MISTRAL_API_KEY=votre_clé_api_mistral
 
 ```
 .
-├── app.py                  # Application Streamlit principale
+├── MistralChat.py          # Application Streamlit principale
 ├── indexer.py              # Script pour indexer les documents
 ├── inputs/                 # Dossier pour les documents sources
 ├── vector_db/              # Dossier pour l'index FAISS et les chunks
@@ -100,7 +100,7 @@ Ce script va :
 ### 3. Lancer l'application
 
 ```bash
-streamlit run app.py
+streamlit run MistralChat.py
 ```
 
 L'application sera accessible à l'adresse http://localhost:8501 dans votre navigateur.
