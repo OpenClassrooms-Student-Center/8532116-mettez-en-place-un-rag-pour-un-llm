@@ -1,4 +1,5 @@
-# indexer.py
+#!/bin/env python
+
 import argparse
 import logging
 from typing import Optional

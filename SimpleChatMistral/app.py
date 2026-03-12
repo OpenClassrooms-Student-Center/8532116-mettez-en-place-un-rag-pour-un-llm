@@ -1,8 +1,7 @@
 import streamlit as st
 import os
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
-
+from mistralai.client import Mistral
+from SimpleChatMistral.chat_message import ChatMessage
 import logging # Ajout pour un meilleur débogage des erreurs API
 from dotenv import load_dotenv
 load_dotenv()
@@ -27,7 +26,7 @@ if not api_key:
     st.stop() # Arrête l'exécution si la clé n'est pas fournie
 
 try:
-    client = MistralClient(api_key=api_key)
+    client = Mistral(api_key=api_key)
     model = "mistral-large-latest" # Ou un autre modèle comme "mistral-small-latest"
 except Exception as e:
     st.error(f"Erreur lors de l'initialisation du client Mistral : {e}")
@@ -59,7 +58,7 @@ def construire_prompt_session(messages, max_messages=10):
 
     # Convertit les dictionnaires en objets ChatMessage
     formatted_messages = [
-        ChatMessage(role=msg["role"], content=msg["content"])
+        ChatMessage(role=msg["role"], content=msg["content"]).format()
         for msg in recent_messages
     ]
 

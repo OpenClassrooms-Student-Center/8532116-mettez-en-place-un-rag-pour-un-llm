@@ -5,8 +5,8 @@ Module de classification des requêtes pour déterminer si une question nécessi
 import re
 import logging
 from typing import Dict, List, Tuple, Optional
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
+from mistralai.client import Mistral
+from SimpleChatMistral.chat_message import ChatMessage
 
 from utils.config import MISTRAL_API_KEY, CHAT_MODEL, COMMUNE_NAME
 
@@ -19,7 +19,7 @@ class QueryClassifier:
         """
         Initialise le classificateur de requêtes
         """
-        self.mistral_client = MistralClient(api_key=MISTRAL_API_KEY) if MISTRAL_API_KEY else None
+        self.mistral_client = Mistral(api_key=MISTRAL_API_KEY) if MISTRAL_API_KEY else None
         
         # Mots-clés liés à la commune qui suggèrent un besoin de RAG
         self.commune_keywords = [

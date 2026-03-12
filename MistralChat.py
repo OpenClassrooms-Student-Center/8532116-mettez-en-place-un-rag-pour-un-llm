@@ -1,12 +1,12 @@
 # app.py
 import streamlit as st
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
+from mistralai.client import Mistral
 import logging
 import datetime
 from streamlit_feedback import streamlit_feedback # Importez le composant
 
 # Importer nos modules locaux
+from SimpleChatMistral.chat_message import ChatMessage
 from utils.config import APP_TITLE, COMMUNE_NAME, MISTRAL_API_KEY
 from utils.vector_store import VectorStoreManager
 from utils.database import log_interaction, update_feedback # Importez update_feedback
@@ -36,7 +36,7 @@ def get_mistral_client():
         st.error("Erreur: La clé API Mistral (MISTRAL_API_KEY) n'est pas configurée.")
         st.stop()
     logging.info("Initialisation du client Mistral...")
-    return MistralClient(api_key=MISTRAL_API_KEY)
+    return Mistral(api_key=MISTRAL_API_KEY)
 
 # Met en cache le classificateur de requêtes
 @st.cache_resource
@@ -246,11 +246,11 @@ N'inventez pas d'informations sur {COMMUNE_NAME}.
 """
             user_message = ChatMessage(role="user", content=prompt)
             system_message = ChatMessage(role="system", content=system_prompt)
-            messages_for_api = [system_message, user_message]
+            messages_for_api = [system_message.format(), user_message.format()]
 
             # 3. Appel à l'API Mistral Chat
             logging.info(f"Appel de l'API Mistral Chat avec le modèle {selected_model}...")
-            chat_response = client.chat(
+            chat_response = client.chat.complete(
                 model=selected_model,
                 messages=messages_for_api
             )

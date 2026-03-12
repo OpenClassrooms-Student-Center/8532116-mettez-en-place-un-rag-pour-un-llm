@@ -6,6 +6,8 @@ import io
 from pathlib import Path
 from typing import List, Dict, Optional
 import logging
+import traceback
+
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -34,6 +36,7 @@ def extract_text_from_docx(file_path: str) -> Optional[str]:
         return text
     except Exception as e:
         logging.error(f"Erreur extraction DOCX {file_path}: {e}")
+        traceback.print_exception(e)
         return None
 
 def extract_text_from_txt(file_path: str) -> Optional[str]:

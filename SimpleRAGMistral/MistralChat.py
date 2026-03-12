@@ -2,8 +2,8 @@
 import streamlit as st
 import os
 import logging
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
+from mistralai.client import Mistral
+from SimpleChatMistral.chat_message import ChatMessage
 from dotenv import load_dotenv
 
 # --- Importations depuis vos modules ---
@@ -31,7 +31,7 @@ if not api_key:
     st.stop()
 
 try:
-    client = MistralClient(api_key=api_key)
+    client = Mistral(api_key=api_key)
     logging.info("Client Mistral initialisé.")
 except Exception as e:
     st.error(f"Erreur lors de l'initialisation du client Mistral : {e}")
@@ -175,7 +175,7 @@ if prompt := st.chat_input(f"Posez votre question sur {COMMUNE_NAME}..."):
     # Créer la liste de messages pour l'API (juste le prompt système/utilisateur combiné)
     messages_for_api = [
         # On pourrait séparer system et user, mais Mistral gère bien un long message user structuré
-        ChatMessage(role="user", content=final_prompt_for_llm)
+        ChatMessage(role="user", content=final_prompt_for_llm).format()
     ]
 
     # === Fin de la logique RAG ===
